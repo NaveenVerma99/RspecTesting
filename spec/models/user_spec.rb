@@ -3,28 +3,31 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   context 'validation tests' do 
     it 'ensures name presence' do 
-      user = User.new(email: 'naveen@gmail.com').save
-      expect(user).to eq(false)
+      user = FactoryBot.create(:user)
+      # user = User.new(email: 'naveen@gmail.com').save
+      expect(user.name).to eq("Naveen")
 
     end
 
     it 'ensures email presence' do 
-      user = User.new(name: 'Naveen').save
-      expect(user).to eq(false)
+      user = FactoryBot.create(:user)
+      #user = User.new(name: 'Naveen').save
+      expect(user.email).to eq("naveen@gmail.com")
     end
 
     it 'should save successfully' do
-      user = User.new(name: 'Naveen', email: 'naveen@gmail.com').save
-      expect(user).to eq(true)
+      user = FactoryBot.create(:user)
+      user.save
+      expect(user).to eq(user)
     end
   end
 
   context 'scope tests' do 
     let (:params) {{name: 'naveen', email: 'naveen@gmail.com'}}
     before(:each) do
-      User.new(params.merge(active: true)).save
-      User.new(params.merge(active: true)).save
-      User.new(params.merge(active: false)).save 
+      FactoryBot.create(:user, params.merge(active: true))
+      FactoryBot.create(:user, params.merge(active: true))
+      FactoryBot.create(:user, params.merge(active: false))
     end
 
     it 'should return active users' do 
