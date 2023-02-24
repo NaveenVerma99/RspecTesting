@@ -37,6 +37,7 @@ RSpec.describe PostsController, :type => :controller do
                 post_id: faux_post.id
             }
             expect(subject).to redirect_to(assigns(:faux_post))
+        end
     end
 
 end
