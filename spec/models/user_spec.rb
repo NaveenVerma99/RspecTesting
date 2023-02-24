@@ -6,7 +6,6 @@ RSpec.describe User, type: :model do
       user = FactoryBot.create(:user)
       # user = User.new(email: 'naveen@gmail.com').save
       expect(user.name).to eq("Naveen")
-
     end
 
     it 'ensures email presence' do 
