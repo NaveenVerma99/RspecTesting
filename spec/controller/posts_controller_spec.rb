@@ -57,6 +57,16 @@ RSpec.describe PostsController, :type => :controller do
             }
             expect(subject).to redirect_to(assigns(:post))
         end
+        it 'should render the show template with json format' do
+            post :create, params: {
+                post: {
+                    title: "New Blog Post",
+                    body: "Body of new Blog Post"
+                },
+                format: :json
+            }
+            expect(subject).to render_template("posts/show")
+        end
     end
 
 end
