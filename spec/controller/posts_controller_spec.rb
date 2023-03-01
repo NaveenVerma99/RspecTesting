@@ -157,6 +157,55 @@ RSpec.describe PostsController, :type => :controller do
         
             expect(response).to be_successful
         end
+
+        it 'should redirect to posts index page after deleting a user' do
+            delete :destroy, params: {
+                id: faux_post1.id
+            }
+            expect(subject).to redirect_to(posts_url)
+        end
+    end
+
+    describe 'GET Show' do 
+        let!(:faux_post) {FactoryBot.create(:post)}
+        let!(:faux_post1) {FactoryBot.create :post}
+
+        it 'should render the show template of user' do
+            get :show, params: {
+                id: faux_post1.id
+            }
+            expect(response).to render_template('posts/show')
+            expect(response.media_type).to eq('text/html')
+            expect(response.content_type).to eq('text/html; charset=utf-8')
+        end
+    end
+
+    describe 'GET Edit' do 
+        let!(:faux_post) {FactoryBot.create(:post)}
+        let!(:faux_post1) {FactoryBot.create :post}
+
+        it 'should render the edit template of user' do
+            get :edit, params: {
+                id: faux_post1.id
+            }
+            expect(response).to render_template('posts/edit')
+            expect(response.media_type).to eq('text/html')
+            expect(response.content_type).to eq('text/html; charset=utf-8')
+        end
+    end
+
+    describe 'GET New' do 
+        let!(:faux_post) {FactoryBot.create(:post)}
+        let!(:faux_post1) {FactoryBot.create :post}
+
+        it 'should render the new template of user' do
+            get :new, params: {
+                id: faux_post1.id
+            }
+            expect(response).to render_template('posts/new')
+            expect(response.media_type).to eq('text/html')
+            expect(response.content_type).to eq('text/html; charset=utf-8')
+        end
     end
 
     def post_params
